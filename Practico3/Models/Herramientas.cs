@@ -1,6 +1,6 @@
 ﻿namespace Practico3.Models
 {
-    public class Herramienta
+    public class Herramientas
     {
         public int Id { get; set; }
         public string Modelo { get; set; }

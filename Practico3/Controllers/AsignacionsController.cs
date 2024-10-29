@@ -55,8 +55,6 @@ namespace Practico3.Controllers
         }
 
         // POST: Asignacions/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,HerramientaId,UsuarioId,FechaAsignacion,FechaDevolucion,Estado")] Asignacion asignacion)
@@ -65,12 +63,28 @@ namespace Practico3.Controllers
             {
                 _context.Add(asignacion);
                 await _context.SaveChangesAsync();
+
+                // Recuperar el usuario asignado y actualizar HerramientasAsignadas
+                var usuario = await _context.Usuarios
+                    .Include(u => u.Asignaciones) // Incluir las asignaciones para calcular el total
+                    .FirstOrDefaultAsync(u => u.Id == asignacion.UsuarioId);
+
+                if (usuario != null)
+                {
+                    usuario.ActualizarHerramientasAsignadas(); // Actualizar el campo
+                    _context.Update(usuario); // Marcar el usuario como modificado
+                    await _context.SaveChangesAsync(); // Guardar los cambios en la base de datos
+                }
+
                 return RedirectToAction(nameof(Index));
             }
+
+            // Volver a cargar los datos de selección si el modelo no es válido
             ViewData["HerramientaId"] = new SelectList(_context.Herramientas, "Id", "Id", asignacion.HerramientaId);
             ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "Id", asignacion.UsuarioId);
             return View(asignacion);
         }
+
 
         // GET: Asignacions/Edit/5
         public async Task<IActionResult> Edit(int? id)

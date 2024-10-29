@@ -57,7 +57,7 @@ namespace Practico3.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Modelo,MarcaId,CantidadTotal,CantidadDisponible,CantidadUsada,CantidadEnMantenimiento,Estado")] Herramienta herramienta)
+        public async Task<IActionResult> Create([Bind("Id,Modelo,MarcaId,CantidadTotal,CantidadDisponible,CantidadUsada,CantidadEnMantenimiento,Estado")] Herramientas herramienta)
         {
             if (ModelState.IsValid)
             {
@@ -91,7 +91,7 @@ namespace Practico3.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Modelo,MarcaId,CantidadTotal,CantidadDisponible,CantidadUsada,CantidadEnMantenimiento,Estado")] Herramienta herramienta)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Modelo,MarcaId,CantidadTotal,CantidadDisponible,CantidadUsada,CantidadEnMantenimiento,Estado")] Herramientas herramienta)
         {
             if (id != herramienta.Id)
             {
