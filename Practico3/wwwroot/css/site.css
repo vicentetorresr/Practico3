@@ -94,6 +94,53 @@ a {
         color: #0056b3;
     }
 
+/* Estilos para las tablas en los índices */
+/* Asegura que la tabla tenga el borde completo */
+/* Asegura que la tabla tenga el borde completo */
+.table {
+    width: 100%;
+    margin: 20px 0;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    border: 1px solid #dee2e6; /* Borde externo */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Sombra externa */
+}
+
+/* Establece un tamaño mínimo para el cuerpo de la tabla */
+.table tbody {
+    min-height: 150px; /* Ajusta según el tamaño que necesites */
+}
+
+/* Bordes internos de celdas y espacio para que se vea el borde */
+.table th, .table td {
+    padding: 12px 15px;
+    border: 1px solid #dee2e6;
+    text-align: left;
+    vertical-align: middle;
+}
+
+/* Colores de fondo y estilo de encabezado */
+.table th {
+    background-color: #343a40;
+    color: #ffffff;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* Alterna color de filas y añade fondo al hover */
+.table tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+.table tbody tr:hover {
+    background-color: #e9ecef;
+    cursor: pointer;
+}
+
+
+
+
+
 .navbar-expand-sm .navbar-nav {
     background-color: #d3d3d3;
     border-radius: 5px;

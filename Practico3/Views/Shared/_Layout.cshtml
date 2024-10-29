@@ -7,70 +7,71 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Practico3.styles.css" asp-append-version="true" />
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-dark bg-dark mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Practico3</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Inicio</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        <!-- Menú de Usuarios -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="usuariosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Usuarios
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="usuariosDropdown">
+                                <li><a class="dropdown-item" asp-controller="Usuarios" asp-action="Index">Ver Usuarios</a></li>
+                                <li><a class="dropdown-item" asp-controller="Usuarios" asp-action="Create">Crear Usuario</a></li>
+                            </ul>
                         </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Usuarios" asp-action="Index">Mostrar Usuarios</a>
+                        <!-- Menú de Herramientas -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="herramientasDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Herramientas
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="herramientasDropdown">
+                                <li><a class="dropdown-item" asp-controller="Herramientas" asp-action="Index">Ver Herramientas</a></li>
+                                <li><a class="dropdown-item" asp-controller="Herramientas" asp-action="Create">Ingresar Herramienta</a></li>
+                            </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Usuarios" asp-action="Create">Crear Usuarios</a>
+                        <!-- Menú de Marcas -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="marcasDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Marcas
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="marcasDropdown">
+                                <li><a class="dropdown-item" asp-controller="Marcas" asp-action="Index">Ver Marcas</a></li>
+                                <li><a class="dropdown-item" asp-controller="Marcas" asp-action="Create">Crear Marca</a></li>
+                            </ul>
                         </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Marcas" asp-action="Index">Mostrar Marcas</a>
+                        <!-- Menú de Asignaciones -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="asignacionesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Asignaciones
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="asignacionesDropdown">
+                                <li><a class="dropdown-item" asp-controller="Asignacions" asp-action="Index">Ver Asignaciones</a></li>
+                                <li><a class="dropdown-item" asp-controller="Asignacions" asp-action="Create">Crear Asignación</a></li>
+                            </ul>
                         </li>
-                        
-
-                        <li class="nav-item">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Herramientas" asp-action="Index">Mostrar Herramientas</a>
+                        <!-- Menú de Mantenimientos -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="mantenimientosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Mantenimientos
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="mantenimientosDropdown">
+                                <li><a class="dropdown-item" asp-controller="Mantenimientoes" asp-action="Index">Ver Mantenimientos</a></li>
+                                <li><a class="dropdown-item" asp-controller="Mantenimientoes" asp-action="Create">Crear Mantenimiento</a></li>
+                            </ul>
                         </li>
-                            <a class="nav-link" asp-area="" asp-controller="Herramientas" asp-action="Create">Ingresar Herramienta</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Asignacions" asp-action="Index">Mostrar Asignaciones</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Asignacions" asp-action="Create">Crear Asignaciones</a>
-                        </li>
-
-
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Mantenimientoes" asp-action="Index">Mostrar Mantenimientos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Mantenimientoes" asp-action="Create">Crear Mantenimientos</a>
-                        </li>
-
-
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="IngresoHerramientas" asp-action="Index">Mostrar ingreso de herramientas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="IngresoHerramientas" asp-action="Create">Crear IngrseoHerramientas</a>
-                        </li>
-
-                       
-
-                        
                     </ul>
                 </div>
             </div>
@@ -83,11 +84,12 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer text-center text-muted py-3 mt-4">
         <div class="container">
             &copy; 2024 - Practico3 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

@@ -3,12 +3,21 @@
 }
 
 <div class="container text-center mt-4">
-    <h1 class="display-4">¡Bienvenido!</h1>
-    <p>Aprende sobre <a href="https://docs.microsoft.com/aspnet/core">la construcción de aplicaciones web con ASP.NET Core</a>.</p>
+    <h1 class="display-4">¡Bienvenido a la Gestión de Bodega de Herramientas!</h1>
 
+    <!-- Sección de estadísticas rápidas -->
+   
+
+    <!-- Sección de botones de acción directa -->
     <div class="mt-4">
-        <a class="btn btn-primary btn-lg" asp-controller="Herramientas" asp-action="Index">Ver Herramientas</a>
-        <a class="btn btn-secondary btn-lg" asp-controller="Usuarios" asp-action="Index">Ver Usuarios</a>
-        <a class="btn btn-success btn-lg" asp-controller="Marcas" asp-action="Index">Ver Marcas</a>
+        <a class="btn btn-outline-primary btn-lg mx-2" asp-controller="Herramientas" asp-action="Index">
+            <i class="fas fa-toolbox"></i> Ver Herramientas
+        </a>
+        <a class="btn btn-outline-secondary btn-lg mx-2" asp-controller="Usuarios" asp-action="Index">
+            <i class="fas fa-users"></i> Ver Usuarios
+        </a>
+        <a class="btn btn-outline-success btn-lg mx-2" asp-controller="Marcas" asp-action="Index">
+            <i class="fas fa-tags"></i> Ver Marcas
+        </a>
     </div>
 </div>
