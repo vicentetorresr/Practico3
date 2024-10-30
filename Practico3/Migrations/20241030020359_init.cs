@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Practico3.Migrations
 {
-    public partial class Inicio : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -71,9 +71,9 @@ namespace Practico3.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     HerramientaId = table.Column<int>(type: "int", nullable: false),
                     UsuarioId = table.Column<int>(type: "int", nullable: false),
-                    FechaAsignacion = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FechaAsignacion = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 10, 29, 23, 3, 59, 80, DateTimeKind.Local).AddTicks(3458)),
                     FechaDevolucion = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Estado = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Estado = table.Column<string>(type: "nvarchar(max)", nullable: false, defaultValue: "En uso")
                 },
                 constraints: table =>
                 {

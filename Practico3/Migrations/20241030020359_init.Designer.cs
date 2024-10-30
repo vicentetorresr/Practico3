@@ -12,8 +12,8 @@ using Practico3.Data;
 namespace Practico3.Migrations
 {
     [DbContext(typeof(Contextt))]
-    [Migration("20241030014629_Inicio")]
-    partial class Inicio
+    [Migration("20241030020359_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,10 +34,14 @@ namespace Practico3.Migrations
 
                     b.Property<string>("Estado")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(max)")
+                        .HasDefaultValue("En uso");
 
                     b.Property<DateTime>("FechaAsignacion")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2024, 10, 29, 23, 3, 59, 80, DateTimeKind.Local).AddTicks(3458));
 
                     b.Property<DateTime?>("FechaDevolucion")
                         .HasColumnType("datetime2");

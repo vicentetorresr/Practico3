@@ -20,6 +20,7 @@ namespace Practico3.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            // Configuracion default para parametros de Herramientas
             modelBuilder.Entity<Herramientas>()
                 .Property(h => h.CantidadDisponible)
                 .HasDefaultValue(0);
@@ -36,6 +37,14 @@ namespace Practico3.Data
                 .Property(h => h.Estado)
                 .HasDefaultValue("Disponible");
 
+            // Configuracion default para parametros de Asignacion
+            modelBuilder.Entity<Asignacion>()
+               .Property(h => h.Estado)
+               .HasDefaultValue("En uso");
+
+            modelBuilder.Entity<Asignacion>()
+                .Property(h => h.FechaAsignacion)
+                .HasDefaultValue(DateTime.Now);
         }
     }
 }
