@@ -6,7 +6,13 @@
         public string Nombre { get; set; }
         public string Email { get; set; }
 
-        // campo solo de lectura
+        // Campo privado
         public int HerramientasAsignadas { get; private set; } = 0;
+
+        // Método para incrementar herramientas asignadas
+        public void IncrementarHerramientasAsignadas()
+        {
+            HerramientasAsignadas++;
+        }
     }
 }
