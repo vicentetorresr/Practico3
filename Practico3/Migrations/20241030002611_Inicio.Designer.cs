@@ -12,8 +12,8 @@ using Practico3.Data;
 namespace Practico3.Migrations
 {
     [DbContext(typeof(Contextt))]
-    [Migration("20241030000920_Inicial")]
-    partial class Inicial
+    [Migration("20241030002611_Inicio")]
+    partial class Inicio
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -214,7 +214,7 @@ namespace Practico3.Migrations
             modelBuilder.Entity("Practico3.Models.Herramientas", b =>
                 {
                     b.HasOne("Practico3.Models.Marca", "Marca")
-                        .WithMany("Herramientas")
+                        .WithMany()
                         .HasForeignKey("MarcaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -257,11 +257,6 @@ namespace Practico3.Migrations
                     b.Navigation("Asignaciones");
 
                     b.Navigation("Mantenimientos");
-                });
-
-            modelBuilder.Entity("Practico3.Models.Marca", b =>
-                {
-                    b.Navigation("Herramientas");
                 });
 #pragma warning restore 612, 618
         }

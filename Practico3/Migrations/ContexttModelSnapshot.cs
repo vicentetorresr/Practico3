@@ -212,7 +212,7 @@ namespace Practico3.Migrations
             modelBuilder.Entity("Practico3.Models.Herramientas", b =>
                 {
                     b.HasOne("Practico3.Models.Marca", "Marca")
-                        .WithMany("Herramientas")
+                        .WithMany()
                         .HasForeignKey("MarcaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -255,11 +255,6 @@ namespace Practico3.Migrations
                     b.Navigation("Asignaciones");
 
                     b.Navigation("Mantenimientos");
-                });
-
-            modelBuilder.Entity("Practico3.Models.Marca", b =>
-                {
-                    b.Navigation("Herramientas");
                 });
 #pragma warning restore 612, 618
         }
