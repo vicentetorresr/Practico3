@@ -55,7 +55,7 @@ namespace Practico3.Migrations
                     b.ToTable("Asignaciones");
                 });
 
-            modelBuilder.Entity("Practico3.Models.Herramienta", b =>
+            modelBuilder.Entity("Practico3.Models.Herramientas", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -192,14 +192,14 @@ namespace Practico3.Migrations
 
             modelBuilder.Entity("Practico3.Models.Asignacion", b =>
                 {
-                    b.HasOne("Practico3.Models.Herramienta", "Herramienta")
+                    b.HasOne("Practico3.Models.Herramientas", "Herramienta")
                         .WithMany("Asignaciones")
                         .HasForeignKey("HerramientaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Practico3.Models.Usuario", "Usuario")
-                        .WithMany("Asignaciones")
+                        .WithMany()
                         .HasForeignKey("UsuarioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -209,7 +209,7 @@ namespace Practico3.Migrations
                     b.Navigation("Usuario");
                 });
 
-            modelBuilder.Entity("Practico3.Models.Herramienta", b =>
+            modelBuilder.Entity("Practico3.Models.Herramientas", b =>
                 {
                     b.HasOne("Practico3.Models.Marca", "Marca")
                         .WithMany("Herramientas")
@@ -222,7 +222,7 @@ namespace Practico3.Migrations
 
             modelBuilder.Entity("Practico3.Models.IngresoHerramienta", b =>
                 {
-                    b.HasOne("Practico3.Models.Herramienta", "Herramienta")
+                    b.HasOne("Practico3.Models.Herramientas", "Herramienta")
                         .WithMany()
                         .HasForeignKey("HerramientaId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -241,7 +241,7 @@ namespace Practico3.Migrations
 
             modelBuilder.Entity("Practico3.Models.Mantenimiento", b =>
                 {
-                    b.HasOne("Practico3.Models.Herramienta", "Herramienta")
+                    b.HasOne("Practico3.Models.Herramientas", "Herramienta")
                         .WithMany("Mantenimientos")
                         .HasForeignKey("HerramientaId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -250,7 +250,7 @@ namespace Practico3.Migrations
                     b.Navigation("Herramienta");
                 });
 
-            modelBuilder.Entity("Practico3.Models.Herramienta", b =>
+            modelBuilder.Entity("Practico3.Models.Herramientas", b =>
                 {
                     b.Navigation("Asignaciones");
 
@@ -260,11 +260,6 @@ namespace Practico3.Migrations
             modelBuilder.Entity("Practico3.Models.Marca", b =>
                 {
                     b.Navigation("Herramientas");
-                });
-
-            modelBuilder.Entity("Practico3.Models.Usuario", b =>
-                {
-                    b.Navigation("Asignaciones");
                 });
 #pragma warning restore 612, 618
         }

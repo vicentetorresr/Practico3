@@ -8,13 +8,5 @@
 
         // campo solo de lectura
         public int HerramientasAsignadas { get; private set; } = 0;
-
-        public List<Asignacion> Asignaciones { get; set; }
-
-        // metodo para actualizar HerramientasAsignadas basado en la cantidad de asignaciones.
-        public void ActualizarHerramientasAsignadas()
-        {
-            HerramientasAsignadas = Asignaciones.Count(a => a.FechaDevolucion == null);
-        }
     }
 }
