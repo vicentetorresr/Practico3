@@ -34,40 +34,100 @@ namespace Practico3.Controllers
                 return NotFound();
             }
 
-            var herramienta = await _context.Herramientas
+            var herramientas = await _context.Herramientas
                 .Include(h => h.Marca)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (herramienta == null)
+            if (herramientas == null)
             {
                 return NotFound();
             }
 
-            return View(herramienta);
+            return View(herramientas);
         }
 
         // GET: Herramientas/Create
         public IActionResult Create()
         {
-            ViewData["MarcaId"] = new SelectList(_context.Marcas, "Id", "Id");
+            ViewData["MarcaId"] = new SelectList(_context.Marcas, "Id", "Nombre");
             return View();
         }
 
-        // POST: Herramientas/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
+
+
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Modelo,MarcaId,CantidadTotal,CantidadDisponible,CantidadUsada,CantidadEnMantenimiento,Estado")] Herramientas herramienta)
+        public async Task<IActionResult> Create([Bind("Nombre,Modelo,MarcaId,CantidadTotal")] Herramientas herramientas)
         {
-            if (ModelState.IsValid)
+            // Verifica si los campos obligatorios están vacíos
+            if (string.IsNullOrWhiteSpace(herramientas.Nombre))
             {
-                _context.Add(herramienta);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                ModelState.AddModelError("Nombre", "El nombre es obligatorio.");
             }
-            ViewData["MarcaId"] = new SelectList(_context.Marcas, "Id", "Id", herramienta.MarcaId);
-            return View(herramienta);
+
+            if (string.IsNullOrWhiteSpace(herramientas.Modelo))
+            {
+                ModelState.AddModelError("Modelo", "El modelo es obligatorio.");
+            }
+
+            // Verifica si MarcaId es válido
+            if (herramientas.MarcaId <= 0)
+            {
+                ModelState.AddModelError("MarcaId", "La marca es obligatoria.");
+            }
+            else
+            {
+                // Verifica si la marca existe en la base de datos
+                var marcaExists = await _context.Marcas.AnyAsync(m => m.Id == herramientas.MarcaId);
+                if (!marcaExists)
+                {
+                    ModelState.AddModelError("MarcaId", "La marca seleccionada no es válida.");
+                }
+            }
+
+            if (herramientas.CantidadTotal < 0)
+            {
+                ModelState.AddModelError("CantidadTotal", "La cantidad total debe ser mayor que cero.");
+            }
+            /*
+            // Si hay errores en el ModelState, lanza una excepción con todos los errores
+            if (!ModelState.IsValid)
+            {
+                var errorMessage = "Errores de validación: ";
+                foreach (var state in ModelState)
+                {
+                    foreach (var error in state.Value.Errors)
+                    {
+                        errorMessage += $"Campo: {state.Key}, Error: {error.ErrorMessage}\n";
+                    }
+                }
+
+                throw new Exception(errorMessage + $" : Herramienta.Marca: {herramientas.Marca} herramienta.id: {herramientas.MarcaId}");
+            }
+            */
+            // Agregar la herramienta al contexto
+            _context.Add(herramientas);
+            await _context.SaveChangesAsync();
+
+            // Redirige a la acción Index después de guardar exitosamente
+            return RedirectToAction(nameof(Index));
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         // GET: Herramientas/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -77,13 +137,13 @@ namespace Practico3.Controllers
                 return NotFound();
             }
 
-            var herramienta = await _context.Herramientas.FindAsync(id);
-            if (herramienta == null)
+            var herramientas = await _context.Herramientas.FindAsync(id);
+            if (herramientas == null)
             {
                 return NotFound();
             }
-            ViewData["MarcaId"] = new SelectList(_context.Marcas, "Id", "Id", herramienta.MarcaId);
-            return View(herramienta);
+            ViewData["MarcaId"] = new SelectList(_context.Marcas, "Id", "Id", herramientas.MarcaId);
+            return View(herramientas);
         }
 
         // POST: Herramientas/Edit/5
@@ -91,9 +151,9 @@ namespace Practico3.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Modelo,MarcaId,CantidadTotal,CantidadDisponible,CantidadUsada,CantidadEnMantenimiento,Estado")] Herramientas herramienta)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Modelo,MarcaId,CantidadTotal,CantidadDisponible,CantidadUsada,CantidadEnMantenimiento,Estado")] Herramientas herramientas)
         {
-            if (id != herramienta.Id)
+            if (id != herramientas.Id)
             {
                 return NotFound();
             }
@@ -102,12 +162,12 @@ namespace Practico3.Controllers
             {
                 try
                 {
-                    _context.Update(herramienta);
+                    _context.Update(herramientas);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!HerramientaExists(herramienta.Id))
+                    if (!HerramientasExists(herramientas.Id))
                     {
                         return NotFound();
                     }
@@ -118,8 +178,8 @@ namespace Practico3.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MarcaId"] = new SelectList(_context.Marcas, "Id", "Id", herramienta.MarcaId);
-            return View(herramienta);
+            ViewData["MarcaId"] = new SelectList(_context.Marcas, "Id", "Id", herramientas.MarcaId);
+            return View(herramientas);
         }
 
         // GET: Herramientas/Delete/5
@@ -130,15 +190,15 @@ namespace Practico3.Controllers
                 return NotFound();
             }
 
-            var herramienta = await _context.Herramientas
+            var herramientas = await _context.Herramientas
                 .Include(h => h.Marca)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (herramienta == null)
+            if (herramientas == null)
             {
                 return NotFound();
             }
 
-            return View(herramienta);
+            return View(herramientas);
         }
 
         // POST: Herramientas/Delete/5
@@ -150,17 +210,17 @@ namespace Practico3.Controllers
             {
                 return Problem("Entity set 'Contextt.Herramientas'  is null.");
             }
-            var herramienta = await _context.Herramientas.FindAsync(id);
-            if (herramienta != null)
+            var herramientas = await _context.Herramientas.FindAsync(id);
+            if (herramientas != null)
             {
-                _context.Herramientas.Remove(herramienta);
+                _context.Herramientas.Remove(herramientas);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool HerramientaExists(int id)
+        private bool HerramientasExists(int id)
         {
           return (_context.Herramientas?.Any(e => e.Id == id)).GetValueOrDefault();
         }

@@ -43,13 +43,14 @@ namespace Practico3.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Modelo = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     MarcaId = table.Column<int>(type: "int", nullable: false),
                     CantidadTotal = table.Column<int>(type: "int", nullable: false),
-                    CantidadDisponible = table.Column<int>(type: "int", nullable: false),
-                    CantidadUsada = table.Column<int>(type: "int", nullable: false),
-                    CantidadEnMantenimiento = table.Column<int>(type: "int", nullable: false),
-                    Estado = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    CantidadDisponible = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    CantidadUsada = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    CantidadEnMantenimiento = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    Estado = table.Column<string>(type: "nvarchar(max)", nullable: false, defaultValue: "Disponible")
                 },
                 constraints: table =>
                 {

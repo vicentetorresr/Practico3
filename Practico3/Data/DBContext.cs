@@ -19,6 +19,23 @@ namespace Practico3.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Herramientas>()
+                .Property(h => h.CantidadDisponible)
+                .HasDefaultValue(0);
+
+            modelBuilder.Entity<Herramientas>()
+                .Property(h => h.CantidadUsada)
+                .HasDefaultValue(0);
+
+            modelBuilder.Entity<Herramientas>()
+                .Property(h => h.CantidadEnMantenimiento)
+                .HasDefaultValue(0);
+
+            modelBuilder.Entity<Herramientas>()
+                .Property(h => h.Estado)
+                .HasDefaultValue("Disponible");
+
         }
     }
 }

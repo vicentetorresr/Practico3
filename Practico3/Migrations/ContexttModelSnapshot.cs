@@ -64,25 +64,37 @@ namespace Practico3.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("CantidadDisponible")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
                     b.Property<int>("CantidadEnMantenimiento")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
                     b.Property<int>("CantidadTotal")
                         .HasColumnType("int");
 
                     b.Property<int>("CantidadUsada")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
                     b.Property<string>("Estado")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(max)")
+                        .HasDefaultValue("Disponible");
 
                     b.Property<int>("MarcaId")
                         .HasColumnType("int");
 
                     b.Property<string>("Modelo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nombre")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -193,7 +205,7 @@ namespace Practico3.Migrations
             modelBuilder.Entity("Practico3.Models.Asignacion", b =>
                 {
                     b.HasOne("Practico3.Models.Herramientas", "Herramienta")
-                        .WithMany("Asignaciones")
+                        .WithMany()
                         .HasForeignKey("HerramientaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -242,19 +254,12 @@ namespace Practico3.Migrations
             modelBuilder.Entity("Practico3.Models.Mantenimiento", b =>
                 {
                     b.HasOne("Practico3.Models.Herramientas", "Herramienta")
-                        .WithMany("Mantenimientos")
+                        .WithMany()
                         .HasForeignKey("HerramientaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Herramienta");
-                });
-
-            modelBuilder.Entity("Practico3.Models.Herramientas", b =>
-                {
-                    b.Navigation("Asignaciones");
-
-                    b.Navigation("Mantenimientos");
                 });
 #pragma warning restore 612, 618
         }

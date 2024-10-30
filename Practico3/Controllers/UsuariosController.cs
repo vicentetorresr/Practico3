@@ -58,6 +58,7 @@ namespace Practico3.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Nombre,Email,HerramientasAsignadas")] Usuario usuario)
         {
+
             if (ModelState.IsValid)
             {
                 _context.Add(usuario);
