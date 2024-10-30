@@ -48,7 +48,7 @@ namespace Practico3.Controllers
         // GET: Mantenimientoes/Create
         public IActionResult Create()
         {
-            ViewData["HerramientaId"] = new SelectList(_context.Herramientas, "Id", "Id");
+            ViewData["HerramientaId"] = new SelectList(_context.Herramientas, "Id", "Nombre");
             return View();
         }
 
@@ -65,6 +65,7 @@ namespace Practico3.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["HerramientaId"] = new SelectList(_context.Herramientas, "Id", "Id", mantenimiento.HerramientaId);
             return View(mantenimiento);
         }
