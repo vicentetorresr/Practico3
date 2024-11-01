@@ -23,7 +23,12 @@ namespace Practico3.Controllers
         public async Task<IActionResult> Index()
         {
             var contextt = _context.Mantenimientos.Include(m => m.Herramienta);
-            return View(await contextt.ToListAsync());
+            var mantenimientos = await contextt.ToListAsync();
+
+            // Contar herramientas en mantenimiento
+            ViewData["TotalHerramientasEnMantenimiento"] = mantenimientos.Count;
+
+            return View(mantenimientos);
         }
 
         // GET: Mantenimientoes/Details/5
