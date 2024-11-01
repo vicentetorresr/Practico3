@@ -2,24 +2,34 @@
     ViewData["Title"] = "Home Page";
 }
 
+<style>
+    /* Clase personalizada para el color de fondo y el borde del botón */
+    .btn-custom-gray {
+        background-color: #424242; /* Color de fondo */
+        border-color: #424242;     /* Color del borde */
+        color: white;              /* Color del texto */
+    }
+    .btn-custom-gray:hover {
+        background-color: #616161; /* Color de fondo al pasar el cursor */
+        border-color: #616161;
+    }
+</style>
+
 <div class="container text-center mt-4">
     <h1 class="display-4">¡Bienvenido a la Gestión de Bodega de Herramientas!</h1>
 
-    <!-- Sección de estadísticas rápidas -->
-   
-
     <!-- Sección de botones de acción directa -->
     <div class="mt-4">
-        <a class="btn btn-outline-primary btn-lg mx-2" asp-controller="Herramientas" asp-action="Index">
+        <a class="btn btn-custom-gray btn-lg mx-2" asp-controller="Herramientas" asp-action="Index">
             <i class="fas fa-toolbox"></i> Ver Herramientas
         </a>
-        <a class="btn btn-outline-secondary btn-lg mx-2" asp-controller="Usuarios" asp-action="Index">
+        <a class="btn btn-custom-gray btn-lg mx-2" asp-controller="Usuarios" asp-action="Index">
             <i class="fas fa-users"></i> Ver Usuarios
         </a>
-        <a class="btn btn-outline-success btn-lg mx-2" asp-controller="Marcas" asp-action="Index">
+        <a class="btn btn-custom-gray btn-lg mx-2" asp-controller="Marcas" asp-action="Index">
             <i class="fas fa-tags"></i> Ver Marcas
         </a>
-        <a class="btn btn-outline-success btn-lg mx-2" asp-controller="IngresoHerramienta" asp-action="Index">
+        <a class="btn btn-custom-gray btn-lg mx-2" asp-controller="IngresoHerramienta" asp-action="Index">
             <i class="fas fa-tags"></i> Ver Ingreso Herramientas
         </a>
     </div>
