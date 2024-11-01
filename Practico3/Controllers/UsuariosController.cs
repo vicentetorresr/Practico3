@@ -20,12 +20,28 @@ namespace Practico3.Controllers
         }
 
         // GET: Usuarios
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchQuery)
         {
-              return _context.Usuarios != null ? 
-                          View(await _context.Usuarios.ToListAsync()) :
-                          Problem("Entity set 'Contextt.Usuarios'  is null.");
+            // Verifica si el contexto no es nulo
+            if (_context.Usuarios == null)
+            {
+                return Problem("Entity set 'Contextt.Usuarios' is null.");
+            }
+
+            // Filtra los usuarios según el término de búsqueda
+            var usuarios = from u in _context.Usuarios
+                           select u;
+
+            if (!string.IsNullOrWhiteSpace(searchQuery))
+            {
+                // Filtra por nombre o correo electrónico que contenga el término de búsqueda
+                usuarios = usuarios.Where(u => u.Nombre.Contains(searchQuery) || u.Email.Contains(searchQuery));
+            }
+
+            // Convierte la lista de usuarios a una lista asincrónica y retorna la vista
+            return View(await usuarios.ToListAsync());
         }
+
 
         // GET: Usuarios/Details/5
         public async Task<IActionResult> Details(int? id)
