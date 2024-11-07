@@ -10,24 +10,69 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <!-- Formulario con AJAX -->
+        <form id="marcaForm">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <!-- Campo Nombre -->
             <div class="form-group">
                 <label asp-for="Nombre" class="control-label"></label>
-                <input asp-for="Nombre" class="form-control" />
+                <input asp-for="Nombre" class="form-control" id="nombreInput" />
                 <span asp-validation-for="Nombre" class="text-danger"></span>
             </div>
+
+            <!-- Botón de Envío -->
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <button type="button" id="createButton" class="btn btn-primary">Create</button>
             </div>
         </form>
     </div>
 </div>
+
+<!-- Mensaje de resultado -->
+<div id="result" class="mt-3"></div>
 
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        $(document).ready(function () {
+            // Manejar el evento de clic en el botón de creación
+            $("#createButton").click(function () {
+                var data = {
+                    Nombre: $("#nombreInput").val() // Obtenemos el valor del campo Nombre
+                };
+
+                // Enviar solicitud AJAX
+                $.ajax({
+                    url: '/Marcas/CreateAjax', // URL del método en el controlador
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(data), // Serializamos los datos a JSON
+                    success: function (response) {
+                        if (response.success) {
+                            $("#result").html(`<p class="text-success">${response.message}</p>`);
+                            $("#marcaForm")[0].reset(); // Limpiar el formulario
+                        } else {
+                            $("#result").html(`<p class="text-danger">${response.message}</p>`);
+                            if (response.errors) {
+                                response.errors.forEach(error => {
+                                    $("#result").append(`<p class="text-danger">${error}</p>`);
+                                });
+                            }
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        $("#result").html(`<p class="text-danger">Error: ${error}</p>`);
+                    }
+                });
+            });
+        });
+    </script>
 }

@@ -26,6 +26,28 @@ namespace Practico3.Controllers
                           View(await _context.Marcas.ToListAsync()) :
                           Problem("Entity set 'Contextt.Marcas'  is null.");
         }
+        // metodo ajax 
+        [HttpPost]
+        public async Task<IActionResult> CreateAjax([FromBody] Marca marca)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Add(marca);
+                    await _context.SaveChangesAsync();
+                    return Json(new { success = true, message = "Marca creada exitosamente." });
+                }
+                catch (Exception ex)
+                {
+                    return Json(new { success = false, message = "Error al guardar la marca: " + ex.Message });
+                }
+            }
+
+            var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
+            return Json(new { success = false, message = "Datos inválidos.", errors });
+        }
+
 
         // GET: Marcas/Details/5
         public async Task<IActionResult> Details(int? id)
