@@ -10,51 +10,77 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form id="herramientaForm">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <!-- Campo Nombre -->
             <div class="form-group">
                 <label asp-for="Nombre" class="control-label"></label>
-                <input asp-for="Nombre" class="form-control" />
+                <input asp-for="Nombre" class="form-control" id="Nombre" />
                 <span asp-validation-for="Nombre" class="text-danger"></span>
             </div>
 
             <!-- Campo Modelo -->
             <div class="form-group">
                 <label asp-for="Modelo" class="control-label"></label>
-                <input asp-for="Modelo" class="form-control" />
+                <input asp-for="Modelo" class="form-control" id="Modelo" />
                 <span asp-validation-for="Modelo" class="text-danger"></span>
             </div>
 
+            <!-- Campo Marca -->
             <div class="form-group">
                 <label asp-for="MarcaId" class="control-label"></label>
-                @Html.DropDownListFor(m => m.MarcaId, (SelectList)ViewData["MarcaId"], "Seleccione una Marca", new { @class = "form-control" })
+                @Html.DropDownListFor(m => m.MarcaId, (SelectList)ViewData["MarcaId"], "Seleccione una Marca", new { @class = "form-control", id = "MarcaId" })
                 <span asp-validation-for="MarcaId" class="text-danger"></span>
             </div>
-
 
             <!-- Campo Cantidad Total -->
             <div class="form-group">
                 <label asp-for="CantidadTotal" class="control-label"></label>
-                <input asp-for="CantidadTotal" class="form-control" />
+                <input asp-for="CantidadTotal" class="form-control" id="CantidadTotal" />
                 <span asp-validation-for="CantidadTotal" class="text-danger"></span>
             </div>
 
             <!-- Botón de Envío -->
             <div class="form-group">
-                <input type="submit" value="Crear" class="btn btn-primary" />
+                <button type="button" id="createButton" class="btn btn-primary">Crear</button>
             </div>
         </form>
-    </div>
-</div>
 
-<div>
-    <a asp-action="Index">Volver a la lista</a>
-</div>
+        <div id="result" class="mt-3"></div>
 
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}
+        @section Scripts {
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script>
+                $(document).ready(function () {
+                    $("#createButton").click(function () {
+                        // Captura los datos del formulario
+                        var data = {
+                            Nombre: $("#Nombre").val(),
+                            Modelo: $("#Modelo").val(),
+                            MarcaId: $("#MarcaId").val(),
+                            CantidadTotal: $("#CantidadTotal").val()
+                        };
+
+                        // Realiza la solicitud AJAX
+                        $.ajax({
+                            url: '/Herramientas/CreateAjax', // Ruta al método en el controlador
+                            type: 'POST',
+                            contentType: 'application/json',
+                            data: JSON.stringify(data),
+                            success: function (response) {
+                                if (response.success) {
+                                    $("#result").html(`<p class="text-success">${response.message}</p>`);
+                                    $("#herramientaForm")[0].reset(); // Limpia el formulario
+                                } else {
+                                    $("#result").html(`<p class="text-danger">${response.message}</p>`);
+                                }
+                            },
+                            error: function (xhr, status, error) {
+                                $("#result").html(`<p class="text-danger">Error: ${error}</p>`);
+                            }
+                        });
+                    });
+                });
+            </script>
+        }

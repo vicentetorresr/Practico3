@@ -15,7 +15,7 @@ body {
     margin: 0;
     padding-bottom: 60px;
     font-family: 'Arial', sans-serif;
-    background-color: #f8f9fa;
+    background-color:  #ffffff;
     color: #343a40;
     line-height: 1.6;
     background-image: url('/Imagen/fondo.jpg.jpg');
@@ -40,7 +40,7 @@ h2 {
     font-size: 1rem;
     border: none;
     border-radius: 5px;
-    background-color: #007bff;
+    background-color: #212121;
     color: white;
     text-decoration: none;
     transition: background-color 0.3s ease;

@@ -52,6 +52,52 @@ namespace Practico3.Controllers
             return View();
         }
 
+        [HttpPost]
+        public async Task<IActionResult> CreateAjax([FromBody] Herramientas herramientas)
+        {
+            if (herramientas == null)
+            {
+                return Json(new { success = false, message = "No se recibieron datos." });
+            }
+
+            // Validaciones
+            if (string.IsNullOrWhiteSpace(herramientas.Nombre))
+            {
+                return Json(new { success = false, message = "El nombre es obligatorio." });
+            }
+
+            if (string.IsNullOrWhiteSpace(herramientas.Modelo))
+            {
+                return Json(new { success = false, message = "El modelo es obligatorio." });
+            }
+
+            if (herramientas.MarcaId <= 0)
+            {
+                return Json(new { success = false, message = "La marca es obligatoria." });
+            }
+
+            var marcaExists = await _context.Marcas.AnyAsync(m => m.Id == herramientas.MarcaId);
+            if (!marcaExists)
+            {
+                return Json(new { success = false, message = "La marca seleccionada no es válida." });
+            }
+
+            if (herramientas.CantidadTotal < 0)
+            {
+                return Json(new { success = false, message = "La cantidad total debe ser mayor que cero." });
+            }
+
+            try
+            {
+                _context.Add(herramientas);
+                await _context.SaveChangesAsync();
+                return Json(new { success = true, message = "Herramienta creada correctamente." });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = $"Error al crear la herramienta: {ex.Message}" });
+            }
+        }
 
 
 
